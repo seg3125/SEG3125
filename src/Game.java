@@ -13,10 +13,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Game{
-	JLabel[][] steps;
+	Step[][] steps;
 	JPanel gamePanel;
+	GameBoard game;
 	
-	public Game(){	
+	public Game(GameBoard game){	
+		this.game = game;
 		gamePanel = new JPanel();
 		gamePanel.setLayout(new GridLayout(3,3));
 		gamePanel.setOpaque(false);
@@ -28,12 +30,16 @@ public class Game{
 		refreshGame();
 	}
 	
-	public JLabel[][] setSteps(){
-		JLabel[][] steps = new JLabel[3][3];
+	public Step[][] setSteps(){
+		Step[][] steps = new Step[3][3];
 		
 		for(int i = 0; i < 3; i++){
 			for(int j = 0; j < 3; j++){
-				steps[i][j] = new JLabel(new ImageIcon(urlAt(i, j)));
+				Step myStep = new Step(game);
+				myStep.label = new JLabel(new ImageIcon(urlAt(i, j)));
+				myStep.location = game.convertBoardMoves(i, j);
+				myStep.type = game.isMiniGame(i, j);
+				steps[i][j] = myStep;
 			}			
 		}
 		
@@ -45,17 +51,21 @@ public class Game{
 	 * http://forums.sun.com/thread.jspa?threadID=505366
 	 */
 	public void updateSteps(int oldx, int oldy, int i, int j) throws IOException{
-		steps[oldx][oldy] = new JLabel(new ImageIcon(urlAt(oldx, oldy)));
+		JLabel theLabel = new JLabel(new ImageIcon(urlAt(oldx, oldy)));
+		int theLoc = game.convertBoardMoves(oldx, oldy);
+		String theType = game.isMiniGame(oldx, oldy);
+		steps[oldx][oldy] = new Step(theLabel, theType, theLoc, game);
 		File url = new File(urlAt(i, j));
-	    BufferedImage im = ImageIO.read(url);
-	    File url2 = new File("images/token.png");
-	    BufferedImage im2 = ImageIO.read(url2);
-	    Graphics2D g = im.createGraphics();
-	    g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-	    g.drawImage(im2, (im.getWidth()-im2.getWidth())/2, (im.getHeight()-im2.getHeight())/2, null);
-	    g.dispose();	        
-	    JLabel theLabel = new JLabel(new ImageIcon(im));
-	    steps[i][j] = theLabel;
+		BufferedImage im = ImageIO.read(url);
+		File url2 = new File("images/token.png");
+		BufferedImage im2 = ImageIO.read(url2);
+		Graphics2D g = im.createGraphics();
+		g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+		g.drawImage(im2, (im.getWidth()-im2.getWidth())/2, (im.getHeight()-im2.getHeight())/2, null);
+		g.dispose();	        
+		steps[i][j].setLabel(new JLabel(new ImageIcon(im)));
+		
+		refreshGame();	
 	}
 	
 	public void refreshGame(){
@@ -68,7 +78,7 @@ public class Game{
 	}
 	
 	public JLabel getSteps(int i, int j){
-		return this.steps[i][j];
+		return this.steps[i][j].getLabel();
 	}
 	
 	public String urlAt(int i, int j){

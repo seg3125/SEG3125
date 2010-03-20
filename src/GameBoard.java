@@ -4,24 +4,30 @@
  */
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.io.IOException;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class GameBoard {	
 	static GameBoard gameboard;
 	JFrame frame;
+	JPanel cards;
 	Control control;
 	Game game;
 	Chat chat;
+	GameHistory history;
 	Team team; // Only one for now
 	
 	final Color backgroundColor = new Color(83, 223, 0);
+	static final Dimension gameSize = new Dimension(900, 550);
 	static final Dimension controlPanelSize = new Dimension(150, 500);
 	static final Dimension gamePanelSize = new Dimension(500, 500);
 	static final Dimension chatPanelSize = new Dimension(250, 500);
+	static final Dimension historyPanelSize = new Dimension(900, 50);
 	
 	/**
 	 * @param args
@@ -37,18 +43,25 @@ public class GameBoard {
 		frame.getContentPane().setBackground(backgroundColor);
 		
 		control = new Control(gameboard);
-		game = new Game();
+		game = new Game(gameboard);
 		chat = new Chat();
+		history = new GameHistory(gameboard);
 		
 		team = new Team();
 		updateGameBoard(0);
+		
+		cards = new JPanel(new CardLayout());
+		cards.setOpaque(false);
+		JPanel gameCard = game.gamePanel;
+		cards.add(gameCard, "GAME");
 
 		frame.getContentPane().add(BorderLayout.WEST, control.controlPanel);
-		frame.getContentPane().add(BorderLayout.CENTER, game.gamePanel);
+		frame.getContentPane().add(BorderLayout.CENTER, cards);
 		frame.getContentPane().add(BorderLayout.EAST, chat.chatPanel);		
+		frame.getContentPane().add(BorderLayout.SOUTH, history.historyPanel);	
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(900, 500);
+		frame.setSize(gameSize);
 		frame.setVisible(true);				
 	}
 	
@@ -58,20 +71,19 @@ public class GameBoard {
 		
 		if(ini_x == 1 && ini_y == 1){
 			;
-		} else {
-		
+		} else {		
 			int newSpot = convertBoardMoves(ini_x, ini_y);
 			newSpot += numSpaces;
 			
-			control.dice.setText("Newspot: " + Integer.toString(newSpot));
-			control.currRoll.setText("Roll: " + numSpaces);
-			
 			int[] coords = new int[2];
+			coords[0] = ini_x;
+			coords[1] = ini_y;
+			
 			if(numSpaces >= 2){
 				coords = getNextMiniGame(ini_x, ini_y);
 				game.updateSteps(ini_x, ini_y, coords[0], coords[1]);
 				team.x_position = coords[0];
-				team.y_position = coords[1];
+				team.y_position = coords[1];			
 			} else if(newSpot >= 9){
 				// Winner!
 				game.updateSteps(ini_x, ini_y, 1, 1);
@@ -89,8 +101,6 @@ public class GameBoard {
 				control.dice.setText("MINIGAME");
 				displayMiniGame(miniGame);
 			}
-			
-			game.refreshGame();
 		}
 	}
 	
@@ -154,13 +164,24 @@ public class GameBoard {
 	}
 	
 	public void displayMiniGame(String theGame){
-		MiniGame thisGame;
 		if(theGame.equals("Sketch")){
-			thisGame = new Sketch();
+			Sketch thisGame = new Sketch(gameboard);
+			JPanel thisGameCard = thisGame.getPanel();
+			cards.add(thisGameCard, "SKETCH");
+			CardLayout cl = (CardLayout)(cards.getLayout());
+		    cl.show(cards, "SKETCH");	
 		} else {
-			thisGame = new Sketch();
+			Trivia thisGame = new Trivia(gameboard);
+			JPanel thisGameCard = thisGame.getPanel();
+			cards.add(thisGameCard, "TRIVIA");
+			CardLayout cl = (CardLayout)(cards.getLayout());
+		    cl.show(cards, "TRIVIA");	
 		}
-		frame.getContentPane().add(BorderLayout.CENTER, thisGame.gamePanel);
+	}
+	
+	public void hideMiniGame(){
+		CardLayout cl = (CardLayout)(cards.getLayout());
+		cl.show(cards, "GAME");	
 	}
 	
 	public int[] getNextMiniGame(int x, int y){
@@ -185,5 +206,9 @@ public class GameBoard {
 		
 		return toReturn;
 	}
+	
+	public void displayHelp(){}
+	
+	public void exitGame(){}
 
 }
