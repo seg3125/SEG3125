@@ -26,11 +26,11 @@ public class Control extends javax.swing.JFrame {
         this.game=game;
     }
 
-    public void  enableDice(){
+    public void enableDice(){
         dice.setEnabled(true);
     }
 
-    public void  disableDice(){
+    public void disableDice(){
         dice.setEnabled(false);
     }
 
@@ -154,12 +154,12 @@ public class Control extends javax.swing.JFrame {
             Random randomGenerator = new Random();
             int rand = randomGenerator.nextInt(5) + 1;
             try{
-                game.updateGameBoard(rand);
+                game.updateGameBoard(1);
             }
             catch (Exception ex){
             }
             //Disabling the dice button so it looks gray
-           dice.setEnabled(false);
+           //dice.setEnabled(false);
         }
     }//GEN-LAST:event_diceActionPerformed
 

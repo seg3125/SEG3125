@@ -75,6 +75,7 @@ public class Game{
 				this.gamePanel.add(getSteps(i, j));
 			}			
 		}
+		gamePanel.validate();
 	}
 	
 	public JLabel getSteps(int i, int j){

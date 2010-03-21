@@ -21,13 +21,14 @@ public class GameBoard {
 	Chat chat;
 	GameHistory history;
 	Team team; // Only one for now
+	IntroOutro introOutro;
 	
-	final Color backgroundColor = new Color(83, 223, 0);
-	static final Dimension gameSize = new Dimension(900, 550);
+	static final Color backgroundColor = new Color(83, 223, 0);
+	static final Dimension gameSize = new Dimension(900, 600);
 	static final Dimension controlPanelSize = new Dimension(150, 500);
 	static final Dimension gamePanelSize = new Dimension(500, 500);
 	static final Dimension chatPanelSize = new Dimension(250, 500);
-	static final Dimension historyPanelSize = new Dimension(900, 50);
+	static final Dimension historyPanelSize = new Dimension(900, 100);
 	
 	/**
 	 * @param args
@@ -44,7 +45,8 @@ public class GameBoard {
 		
 		control = new Control(gameboard);
 		game = new Game(gameboard);
-		chat = new Chat();
+		chat = new Chat();		
+		
 		history = new GameHistory(gameboard);
 		
 		team = new Team();
@@ -54,6 +56,10 @@ public class GameBoard {
 		cards.setOpaque(false);
 		JPanel gameCard = game.gamePanel;
 		cards.add(gameCard, "GAME");
+		
+		/*Creatin the Intro and Outro Panel
+        introOutro = new IntroOutro(gameboard);
+        frame.getContentPane().add(introOutro);*/
 
 		frame.getContentPane().add(BorderLayout.WEST, control.controlPanel);
 		frame.getContentPane().add(BorderLayout.CENTER, cards);
@@ -68,6 +74,8 @@ public class GameBoard {
 	public void updateGameBoard(int numSpaces) throws IOException{
 		int ini_x = team.getX();
 		int ini_y = team.getY();
+		int iniSpot = convertBoardMoves(ini_x, ini_y);
+		boolean moved = false;
 		
 		if(ini_x == 1 && ini_y == 1){
 			;
@@ -79,27 +87,39 @@ public class GameBoard {
 			coords[0] = ini_x;
 			coords[1] = ini_y;
 			
+			int spacesMoved = 0;
+			
 			if(numSpaces >= 2){
 				coords = getNextMiniGame(ini_x, ini_y);
 				game.updateSteps(ini_x, ini_y, coords[0], coords[1]);
 				team.x_position = coords[0];
-				team.y_position = coords[1];			
+				team.y_position = coords[1];
+				spacesMoved = convertBoardMoves(coords[0], coords[1]) - iniSpot;
+				moved = true;
 			} else if(newSpot >= 9){
 				// Winner!
 				game.updateSteps(ini_x, ini_y, 1, 1);
 				team.x_position = 1;
 				team.y_position = 1;
+				spacesMoved = 9 - iniSpot;
+				history.addEvent("\nTeam moved " + numSpaces + " spaces."); 
+				history.addEvent("\nTEAM WON!");
 			} else {
 				coords = convertBoardMoves(newSpot);
 				game.updateSteps(ini_x, ini_y, coords[0], coords[1]);
 				team.x_position = coords[0];
 				team.y_position = coords[1];	
+				spacesMoved = convertBoardMoves(coords[0], coords[1]) - iniSpot;
+				moved = true;
 			}
 			
 			String miniGame = isMiniGame(coords[0], coords[1]);
 			if(!miniGame.equals("FALSE")){
-				control.dice.setText("MINIGAME");
 				displayMiniGame(miniGame);
+			}
+			
+			if(moved){
+				history.addEvent("\nTeam moved " + spacesMoved + " spaces."); 
 			}
 		}
 	}
@@ -154,11 +174,11 @@ public class GameBoard {
 		String xy = Integer.toString(x) + Integer.toString(y);
 		String toReturn = "FALSE";
 		if(xy.equals("20")){
-			toReturn = "Sketch";
+			toReturn = "Trivia";
 		} else if(xy.equals("00")){
 			toReturn = "Trivia";
 		} else if(xy.equals("02")){
-			toReturn = "Sketch";
+			toReturn = "Trivia";
 		}
 		return toReturn;
 	}
@@ -177,6 +197,7 @@ public class GameBoard {
 			CardLayout cl = (CardLayout)(cards.getLayout());
 		    cl.show(cards, "TRIVIA");	
 		}
+		control.disableDice();
 	}
 	
 	public void hideMiniGame(){
