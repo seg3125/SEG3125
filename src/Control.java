@@ -53,8 +53,8 @@ public class Control extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         controlPanel.setOpaque(false);
-	controlPanel.setPreferredSize(GameBoard.controlPanelSize);
-	controlPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+        controlPanel.setPreferredSize(GameBoard.controlPanelSize);
+        controlPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 
         jPanel2.setBackground(new java.awt.Color(0, 204, 204));
 
@@ -154,7 +154,7 @@ public class Control extends javax.swing.JFrame {
             Random randomGenerator = new Random();
             int rand = randomGenerator.nextInt(5) + 1;
             try{
-                game.updateGameBoard(1);
+                game.updateGameBoard(rand);
             }
             catch (Exception ex){
             }

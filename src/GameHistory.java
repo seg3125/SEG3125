@@ -24,7 +24,7 @@ public class GameHistory {
 		
 		eventDisplay = new JTextArea(this.getLastEvent());	
 		eventDisplay.setEditable(false);
-		eventDisplay.setBackground(GameBoard.backgroundColor);
+		eventDisplay.setBackground(GameBoard.BACKGROUND_COLOR);
 		JScrollPane scrollPane = new JScrollPane(eventDisplay);
 		
 		historyPanel.add(HISTORY);

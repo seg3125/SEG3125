@@ -1,25 +1,40 @@
-import javax.swing.ImageIcon;
+import java.awt.*;
+
+import javax.swing.*;
 
 public class Question {
-	String question;
+	JLabel question;
 	String correctAnswer;
-	String answerB;
-	String answerC;
+	JButton[] answers;
 	String type;
-	ImageIcon image;
+	JLabel image;
 	
 	public Question(){
-		this.question = "";
+		this.question = new JLabel();
 		this.correctAnswer = "";
-		this.image = new ImageIcon();
+		this.image = new JLabel(new ImageIcon());
 	}
 	
-	public Question(String q, String a, String b, String c, ImageIcon i){
-		this.question = q;
+	public Question(String type, String q, String a, String b, String c, ImageIcon i){
+		this.type = type;
+		this.question = new JLabel(q, JLabel.CENTER);	
+		this.question.setFont(new Font("Tahoma", 1, 20));
 		this.correctAnswer = a;
-		this.answerB = b;
-		this.answerC = c;
-		this.image = i;
+		
+		this.answers = new JButton[3];
+		answers[0] = new JButton(a);
+		answers[1] = new JButton(b);
+		answers[2] = new JButton(c);
+		Insets buttonMargin = new Insets(50, 50, 50, 50);
+		for(int n = 0; n < answers.length; n++){
+			answers[n].setBackground(new Color(152, 0, 35));
+			answers[n].setForeground(Color.WHITE);
+			answers[n].setMaximumSize(GameBoard.ANSWER_BUTTON_SIZE);
+	        answers[n].setFont(GameBoard.ANSWER_BUTTON_FONT);
+	        answers[n].setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+		}
+		
+		this.image = new JLabel(i);
 	}
 
 }

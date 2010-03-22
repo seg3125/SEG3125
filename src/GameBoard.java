@@ -3,16 +3,10 @@
  *
  */
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.*;
 import java.io.IOException;
 
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class GameBoard {	
 	static GameBoard gameboard;
@@ -25,12 +19,19 @@ public class GameBoard {
 	Team team; // Only one for now
 	IntroOutro introOutro;
 	
-	static final Color backgroundColor = new Color(83, 223, 0);
+	static final Color BACKGROUND_COLOR = new Color(83, 223, 0);
+	static final Color MINIGAME_COLOR = new Color(222, 250, 112);
+	static final Color ANSWER_BUTTON_BACK_COLOR = new Color(152, 0, 35);
+	static final Color ANSWER_BUTTON_FORE_COLOR = Color.WHITE;
+	
+	static final Font ANSWER_BUTTON_FONT = new Font("Tahoma", 1, 14);
+	
 	static final Dimension gameSize = new Dimension(900, 600);
 	static final Dimension controlPanelSize = new Dimension(150, 500);
 	static final Dimension gamePanelSize = new Dimension(500, 500);
 	static final Dimension chatPanelSize = new Dimension(250, 500);
 	static final Dimension historyPanelSize = new Dimension(900, 100);
+	static final Dimension ANSWER_BUTTON_SIZE = new Dimension(150, 50);
 	
 	/**
 	 * @param args
@@ -43,7 +44,7 @@ public class GameBoard {
 	
 	public void createGameBoard() throws Exception{
 		frame = new JFrame();
-		frame.getContentPane().setBackground(backgroundColor);			
+		frame.getContentPane().setBackground(BACKGROUND_COLOR);			
 
 		/*
 		* Creating the Intro and Outro Panel
