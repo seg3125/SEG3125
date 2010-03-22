@@ -26,10 +26,14 @@ public class Trivia{
 		int thisQ = r.nextInt(questions.size());
 		Question thisQuestion = questions.get(thisQ);
 		
+		Countdown cd = new Countdown(gamePanel);
+		
 		gamePanel.add(new JLabel(thisQuestion.image));
 		gamePanel.add(new JLabel(thisQuestion.question));
 		gamePanel.add(new JLabel(thisQuestion.correctAnswer));
-		gamePanel.add(new JLabel(thisQuestion.image));
+		gamePanel.add(new JLabel(cd.toString()));
+		
+		cd.countdown();
 	}
 	
 	public JPanel getPanel(){
@@ -41,12 +45,10 @@ public class Trivia{
 		Question a = new Question("What kind of tree is this?", "Abies fraseri", "Abies flinckii", "Abies balsamea", new ImageIcon("images/firtree.jpg"));
 		Question b = new Question("Hexidecimal notation #FF0000 corresponds to what colour?", "Red", "Green", "Blue", new ImageIcon("images/questionmark.png"));
 		Question c = new Question("What is the registration number of the original Starship Enterprise?", "NCC 1701", "USS 1701-A", "HMS 4511", new ImageIcon("images/enterprise.jpg"));
-		Question d = new Question("What kind of tree is this?", "Abies fraseri", "Abies flinckii", "Abies balsamea", new ImageIcon("images/firtree.jpg"));
 		
 		questions.add(a);
 		questions.add(b);
 		questions.add(c);
-		questions.add(d);
 	}
 
 }

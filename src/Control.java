@@ -148,7 +148,7 @@ public class Control extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void diceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diceActionPerformed
+    private void diceActionPerformed(java.awt.event.ActionEvent evt) {
         if (dice.isEnabled()){
             //Random number generation
             Random randomGenerator = new Random();
@@ -161,15 +161,15 @@ public class Control extends javax.swing.JFrame {
             //Disabling the dice button so it looks gray
            //dice.setEnabled(false);
         }
-    }//GEN-LAST:event_diceActionPerformed
+    }
 
-    private void helpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpActionPerformed
-        // Tell the GameBoard to disply the help window
-    }//GEN-LAST:event_helpActionPerformed
+    private void helpActionPerformed(java.awt.event.ActionEvent evt) {
+        // Tell the GameBoard to display the help window
+    }
 
-    private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
-        // Tell the GameBoart to Display the Beginning Frame
-    }//GEN-LAST:event_exitActionPerformed
+    private void exitActionPerformed(java.awt.event.ActionEvent evt) {
+        game.exitGame();
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

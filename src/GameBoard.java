@@ -9,7 +9,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.io.IOException;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class GameBoard {	
@@ -41,30 +43,13 @@ public class GameBoard {
 	
 	public void createGameBoard() throws Exception{
 		frame = new JFrame();
-		frame.getContentPane().setBackground(backgroundColor);
-		
-		control = new Control(gameboard);
-		game = new Game(gameboard);
-		chat = new Chat();		
-		
-		history = new GameHistory(gameboard);
-		
-		team = new Team();
-		updateGameBoard(0);
-		
-		cards = new JPanel(new CardLayout());
-		cards.setOpaque(false);
-		JPanel gameCard = game.gamePanel;
-		cards.add(gameCard, "GAME");
-		
-		/*Creatin the Intro and Outro Panel
-        introOutro = new IntroOutro(gameboard);
-        frame.getContentPane().add(introOutro);*/
+		frame.getContentPane().setBackground(backgroundColor);			
 
-		frame.getContentPane().add(BorderLayout.WEST, control.controlPanel);
-		frame.getContentPane().add(BorderLayout.CENTER, cards);
-		frame.getContentPane().add(BorderLayout.EAST, chat.chatPanel);		
-		frame.getContentPane().add(BorderLayout.SOUTH, history.historyPanel);	
+		/*
+		* Creating the Intro and Outro Panel
+        */
+        introOutro = new IntroOutro(gameboard);
+        frame.getContentPane().add(introOutro.mainPanel);
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(gameSize);
@@ -228,8 +213,51 @@ public class GameBoard {
 		return toReturn;
 	}
 	
-	public void displayHelp(){}
+	public void showGame() throws IOException{
+		frame.getContentPane().removeAll();
+		frame.validate();
+		
+		control = new Control(gameboard);
+		game = new Game(gameboard);
+		chat = new Chat();		
+		
+		history = new GameHistory(gameboard);
+		
+		team = new Team();
+		updateGameBoard(0);
+		
+		cards = new JPanel(new CardLayout());
+		cards.setOpaque(false);
+		JPanel gameCard = game.gamePanel;
+		cards.add(gameCard, "GAME");
+
+		frame.getContentPane().add(BorderLayout.WEST, control.controlPanel);
+		frame.getContentPane().add(BorderLayout.CENTER, cards);
+		frame.getContentPane().add(BorderLayout.EAST, chat.chatPanel);
+		frame.getContentPane().add(BorderLayout.SOUTH, history.historyPanel);
+		frame.validate();
+	}
 	
-	public void exitGame(){}
+	public void displayHelp(){}
+
+	@SuppressWarnings("deprecation")
+	public void exitGame(){
+		JOptionPane pane = new JOptionPane();
+		pane.setMessage("Are you sure you want to leave the game?");
+		pane.setOptionType(JOptionPane.YES_NO_OPTION);
+		JDialog dialog = pane.createDialog(frame, "Are you sure?");
+	    dialog.show();
+		Object selectedValue = pane.getValue();
+		//If there is an array of option buttons:
+	    if(selectedValue.equals(JOptionPane.YES_OPTION)){
+			frame.getContentPane().removeAll();
+			frame.validate();
+			introOutro = new IntroOutro(gameboard);
+	        frame.getContentPane().add(introOutro.mainPanel);
+	        frame.validate();	
+	    } else {
+	    	;
+	    }	
+	}
 
 }
