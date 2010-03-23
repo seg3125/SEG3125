@@ -4,6 +4,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Dimension;
+import java.awt.Cursor;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -85,6 +86,7 @@ public class IntroOutro{
 
         //Creating the join button
         joinButton = new JButton();
+        joinButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         joinButton.setSize(mainPanelButtonDim);
         joinButton.setPreferredSize(mainPanelButtonDim);
         joinButton.setMaximumSize(mainPanelButtonDim);
@@ -97,6 +99,7 @@ public class IntroOutro{
 
         //Creating the create button
         createButton = new JButton();
+        createButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         createButton.setSize(mainPanelButtonDim);
         createButton.setPreferredSize(mainPanelButtonDim);
         createButton.setMaximumSize(mainPanelButtonDim);

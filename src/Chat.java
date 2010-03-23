@@ -16,6 +16,7 @@
 
 import java.awt.Color;
 import javax.swing.BorderFactory;
+import java.awt.Cursor;
 
 public class Chat extends javax.swing.JFrame {
 
@@ -49,6 +50,7 @@ public class Chat extends javax.swing.JFrame {
         sendButton.setBackground(new java.awt.Color(53, 212, 160));
         sendButton.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         sendButton.setText("Send");
+        sendButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         sendButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         sendButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

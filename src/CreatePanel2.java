@@ -15,6 +15,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Dimension;
 import java.awt.List;
+import java.awt.Cursor;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -116,6 +117,7 @@ public class CreatePanel2 {
 
         //Creating the join button
         cancelButton = new JButton();
+        cancelButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         cancelButton.setSize(IntroOutro.navigationButtonDim);
         cancelButton.setPreferredSize(IntroOutro.navigationButtonDim);
         cancelButton.setMaximumSize(IntroOutro.navigationButtonDim);
@@ -127,6 +129,7 @@ public class CreatePanel2 {
 
         //Creating the back button
         backButton = new JButton();
+        backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         backButton.setSize(IntroOutro.navigationButtonDim);
         backButton.setPreferredSize(IntroOutro.navigationButtonDim);
         backButton.setMaximumSize(IntroOutro.navigationButtonDim);
@@ -140,6 +143,7 @@ public class CreatePanel2 {
 
         //Creating the next button
         finishButton = new JButton();
+        finishButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         finishButton.setSize(IntroOutro.navigationButtonDim);
         finishButton.setPreferredSize(IntroOutro.navigationButtonDim);
         finishButton.setMaximumSize(IntroOutro.navigationButtonDim);
@@ -274,6 +278,7 @@ public class CreatePanel2 {
                                 team1PlayerList.add("Mikie");
 
                                 team1AddPlayer  = new JButton();
+                                team1AddPlayer.setCursor(new Cursor(Cursor.HAND_CURSOR));
                                 team1AddPlayer .setSize(new Dimension(150,20));
                                 team1AddPlayer .setPreferredSize(new Dimension(150,25));
                                 team1AddPlayer .setMaximumSize(new Dimension(150,25));
@@ -284,6 +289,7 @@ public class CreatePanel2 {
                                 team1AddPlayer .setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 
                                 team1removePlayer  = new JButton();
+                                team1removePlayer.setCursor(new Cursor(Cursor.HAND_CURSOR));
                                 team1removePlayer .setSize(new Dimension(150,25));
                                 team1removePlayer .setPreferredSize(new Dimension(150,25));
                                 team1removePlayer .setMaximumSize(new Dimension(150,25));
@@ -364,10 +370,10 @@ public class CreatePanel2 {
                                 team2Yellow = new JRadioButton("Yellow");
                                 team2Yellow.setOpaque(false);
                                 team2ColorRadioButtons =  new ButtonGroup();
-                                team2ColorRadioButtons.add(team1Blue);
-                                team2ColorRadioButtons.add(team1Red);
-                                team2ColorRadioButtons.add(team1Green);
-                                team2ColorRadioButtons.add(team1Yellow);
+                                team2ColorRadioButtons.add(team2Blue);
+                                team2ColorRadioButtons.add(team2Red);
+                                team2ColorRadioButtons.add(team2Green);
+                                team2ColorRadioButtons.add(team2Yellow);
                                 team2ColorLabel= new JLabel("Team Color:");
                                 team2ColorLabel.setFont(new Font("Tahoma", 1, 14));
 
@@ -414,6 +420,7 @@ public class CreatePanel2 {
                                 team2PlayerList.add("Nick");
 
                                 team2AddPlayer  = new JButton();
+                                team2AddPlayer.setCursor(new Cursor(Cursor.HAND_CURSOR));
                                 team2AddPlayer .setSize(new Dimension(150,20));
                                 team2AddPlayer .setPreferredSize(new Dimension(150,25));
                                 team2AddPlayer .setMaximumSize(new Dimension(150,25));
@@ -424,6 +431,7 @@ public class CreatePanel2 {
                                 team2AddPlayer .setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 
                                 team2removePlayer  = new JButton();
+                                team2removePlayer.setCursor(new Cursor(Cursor.HAND_CURSOR));
                                 team2removePlayer .setSize(new Dimension(150,25));
                                 team2removePlayer .setPreferredSize(new Dimension(150,25));
                                 team2removePlayer .setMaximumSize(new Dimension(150,25));

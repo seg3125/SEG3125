@@ -9,15 +9,18 @@ public class Countdown {
 	JPanel gamePanel;
 	Timer timer;
 	TimerTask theCount;
-	Trivia trivia;
+	MiniGame mg;
+	GameBoard game;
 	
-	public Countdown(Trivia t, JPanel gamePanel){
-		this.trivia = t;
+	public Countdown(MiniGame t, JPanel gamePanel, GameBoard game){
+		this.game = game;
+		this.mg = t;
 		this.currTime = "31";
 		this.gamePanel = gamePanel;
 	}
 	
-	public Countdown(JPanel gamePanel, String time){
+	public Countdown(String time, JPanel gamePanel, GameBoard game){
+		this.game = game;
 		this.gamePanel = gamePanel;
 		this.currTime = time;
 	}
@@ -45,7 +48,7 @@ public class Countdown {
 					gamePanel.validate();
 				} else {
 					cancel();
-					trivia.loseMiniGame("You're out of time!");
+					mg.loseMiniGame(mg.gameName, game, gamePanel, "You're out of time!");
 				}
 			}
 		};

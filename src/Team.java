@@ -8,6 +8,7 @@ public class Team {
 	int x_position;
 	int y_position;
 	int currSpot;
+	String name;
 	
 	public Team(){
 		this.color = new Color(0, 0, 255);
@@ -15,6 +16,7 @@ public class Team {
 		this.x_position = 2;
 		this.y_position = 2;
 		this.currSpot = 0;
+		this.name = "AWESOMETEAM";
 	}
 	
 	public int getX(){

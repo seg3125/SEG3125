@@ -254,12 +254,14 @@ public class GameBoard {
 		cl = (CardLayout)(cards.getLayout());
 		cl.show(cards, "HELP");
 		control.disableDice();
+		control.disableHelp();
 	}
 	
 	public void hideHelp(){
 		cl = (CardLayout)(cards.getLayout());
 		cl.show(cards, "GAME");	
-		control.enableDice();		
+		control.enableDice();	
+		control.enableHelp();
 	}
 
 	@SuppressWarnings("deprecation")

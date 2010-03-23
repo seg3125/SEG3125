@@ -14,6 +14,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Dimension;
 import java.awt.List;
+import java.awt.Cursor;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -215,6 +216,7 @@ public class CreatePanel1 {
 
         //Creating the join button
         cancelButton = new JButton();
+        cancelButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         cancelButton.setSize(IntroOutro.navigationButtonDim);
         cancelButton.setPreferredSize(IntroOutro.navigationButtonDim);
         cancelButton.setMaximumSize(IntroOutro.navigationButtonDim);
@@ -240,6 +242,7 @@ public class CreatePanel1 {
 
         //Creating the next button
         nextButton = new JButton();
+        nextButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         nextButton.setSize(IntroOutro.navigationButtonDim);
         nextButton.setPreferredSize(IntroOutro.navigationButtonDim);
         nextButton.setMaximumSize(IntroOutro.navigationButtonDim);

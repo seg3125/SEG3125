@@ -3,17 +3,16 @@ import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
 
-public class Trivia{
+public class Trivia extends MiniGame{
 	JPanel gamePanel;
 	GameBoard game;
 	LinkedList<Question> questions;
 	Countdown cd;
 	Question thisQuestion;
-	JLabel reply;
-	JButton ready;
 	
 	public Trivia(final GameBoard game){
 		this.game = game;
+		this.gameName = "Trivia";
 		gamePanel = new JPanel();
 		gamePanel.setPreferredSize(GameBoard.gamePanelSize);
 		gamePanel.setBackground(GameBoard.MINIGAME_COLOR);
@@ -98,7 +97,7 @@ public class Trivia{
 		int thisQ = r.nextInt(questions.size()-1);
 		thisQuestion = questions.get(thisQ);
 		
-		cd = new Countdown(this, gamePanel);
+		cd = new Countdown(this, gamePanel, game);
 		
 		gamePanel.add(thisQuestion.image);
 		gamePanel.add(thisQuestion.question);
@@ -147,29 +146,8 @@ public class Trivia{
             });
         	gamePanel.revalidate();
     	} else {
-    		loseMiniGame("That's the wrong answer!");
+    		loseMiniGame(gameName, game, gamePanel, "That's the wrong answer!");
     	}    	
-    }
-    
-    public void loseMiniGame(String message){
-    	gamePanel.setLayout(new BorderLayout());
-		gamePanel.removeAll();
-		gamePanel.revalidate();	
-		
-    	reply.setText("<html>" + message + "</html>");
-    	ready.setText("Try again?");
-		game.history.addEvent("\nTeam lost Trivia mini-game.");
-		ready.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                game.hideMiniGame();
-                game.displayMiniGame("Trivia");
-            }
-        });
-		
-		gamePanel.add(reply);
-		gamePanel.add(BorderLayout.SOUTH, ready);
-		
-    	gamePanel.revalidate();
     }
 
 }
