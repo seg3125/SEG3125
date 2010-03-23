@@ -15,11 +15,11 @@ public class Question {
 		this.image = new JLabel(new ImageIcon());
 	}
 	
-	public Question(String type, String q, String a, String b, String c, ImageIcon i){
+	public Question(String type, String q, String ca, String a, String b, String c, ImageIcon i){
 		this.type = type;
 		this.question = new JLabel(q, JLabel.CENTER);	
 		this.question.setFont(new Font("Tahoma", 1, 20));
-		this.correctAnswer = a;
+		this.correctAnswer = ca;
 		
 		this.answers = new JButton[3];
 		answers[0] = new JButton(a);

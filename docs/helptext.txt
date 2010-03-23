@@ -1,0 +1,87 @@
+<html>
+
+<b><u>Game Overview</u></b>
+<br />
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Integer a orci quis nunc auctor faucibus. 
+Ut luctus gravida diam, at tempus lacus convallis et. 
+Proin aliquet gravida lorem vitae cursus. 
+Etiam id mauris in nunc dapibus tempus vel ac quam. 
+Praesent elementum sapien ut eros condimentum et rhoncus eros 
+fermentum. Aenean mattis, erat et feugiat vehicula, 
+magna lorem eleifend lectus, quis hendrerit massa arcu et ante. 
+Vestibulum vestibulum rhoncus sem, vitae accumsan mauris ullamcorper 
+In pretium, urna eget sodales hendrerit, ipsum nisl varius tortor, 
+vel tincidunt justo odio sed purus. Suspendisse a dolor id dolor 
+pellentesque vehicula. Suspendisse ac elit eu nisi suscipit dapibus. 
+Donec quis elit velit. Nam nec est arcu, sed suscipit dolor.
+Nulla et eros et est ultricies adipiscing. Nam eros enim, 
+lacinia ut congue et, lobortis at sem. Ut hendrerit, 
+felis eu tincidunt tristique, massa massa ullamcorper 
+magna, quis scelerisque lectus ante id purus. 
+Etiam dapibus nisi vitae felis varius venenatis.
+<br /><br />
+<b><u>How to play TRIVIA</u></b>
+<br />
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Integer a orci quis nunc auctor faucibus. 
+Ut luctus gravida diam, at tempus lacus convallis et. 
+Proin aliquet gravida lorem vitae cursus. 
+Etiam id mauris in nunc dapibus tempus vel ac quam. 
+Praesent elementum sapien ut eros condimentum et rhoncus eros 
+fermentum. Aenean mattis, erat et feugiat vehicula, 
+magna lorem eleifend lectus, quis hendrerit massa arcu et ante. 
+Vestibulum vestibulum rhoncus sem, vitae accumsan mauris ullamcorper 
+In pretium, urna eget sodales hendrerit, ipsum nisl varius tortor, 
+vel tincidunt justo odio sed purus. Suspendisse a dolor id dolor 
+pellentesque vehicula. Suspendisse ac elit eu nisi suscipit dapibus. 
+Donec quis elit velit. Nam nec est arcu, sed suscipit dolor.
+Nulla et eros et est ultricies adipiscing. Nam eros enim, 
+lacinia ut congue et, lobortis at sem. Ut hendrerit, 
+felis eu tincidunt tristique, massa massa ullamcorper 
+magna, quis scelerisque lectus ante id purus. 
+Etiam dapibus nisi vitae felis varius venenatis.
+<br /><br />
+<b><u>How to play SKETCH</u></b>
+<br />
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Integer a orci quis nunc auctor faucibus. 
+Ut luctus gravida diam, at tempus lacus convallis et. 
+Proin aliquet gravida lorem vitae cursus. 
+Etiam id mauris in nunc dapibus tempus vel ac quam. 
+Praesent elementum sapien ut eros condimentum et rhoncus eros 
+fermentum. Aenean mattis, erat et feugiat vehicula, 
+magna lorem eleifend lectus, quis hendrerit massa arcu et ante. 
+Vestibulum vestibulum rhoncus sem, vitae accumsan mauris ullamcorper 
+In pretium, urna eget sodales hendrerit, ipsum nisl varius tortor, 
+vel tincidunt justo odio sed purus. Suspendisse a dolor id dolor 
+pellentesque vehicula. Suspendisse ac elit eu nisi suscipit dapibus. 
+Donec quis elit velit. Nam nec est arcu, sed suscipit dolor.
+Nulla et eros et est ultricies adipiscing. Nam eros enim, 
+lacinia ut congue et, lobortis at sem. Ut hendrerit, 
+felis eu tincidunt tristique, massa massa ullamcorper 
+magna, quis scelerisque lectus ante id purus. 
+Etiam dapibus nisi vitae felis varius venenatis.
+<br /><br />
+<b><u>How to win</u></b>
+<br />
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Integer a orci quis nunc auctor faucibus. 
+Ut luctus gravida diam, at tempus lacus convallis et. 
+Proin aliquet gravida lorem vitae cursus. 
+Etiam id mauris in nunc dapibus tempus vel ac quam. 
+Praesent elementum sapien ut eros condimentum et rhoncus eros 
+fermentum. Aenean mattis, erat et feugiat vehicula, 
+magna lorem eleifend lectus, quis hendrerit massa arcu et ante. 
+Vestibulum vestibulum rhoncus sem, vitae accumsan mauris ullamcorper 
+In pretium, urna eget sodales hendrerit, ipsum nisl varius tortor, 
+vel tincidunt justo odio sed purus. Suspendisse a dolor id dolor 
+pellentesque vehicula. Suspendisse ac elit eu nisi suscipit dapibus. 
+Donec quis elit velit. Nam nec est arcu, sed suscipit dolor.
+Nulla et eros et est ultricies adipiscing. Nam eros enim, 
+lacinia ut congue et, lobortis at sem. Ut hendrerit, 
+felis eu tincidunt tristique, massa massa ullamcorper 
+magna, quis scelerisque lectus ante id purus. 
+Etiam dapibus nisi vitae felis varius venenatis.
+
+</html>

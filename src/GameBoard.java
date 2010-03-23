@@ -12,6 +12,8 @@ public class GameBoard {
 	static GameBoard gameboard;
 	JFrame frame;
 	JPanel cards;
+	JPanel helpCard;
+	CardLayout cl;
 	Control control;
 	Game game;
 	Chat chat;
@@ -183,14 +185,14 @@ public class GameBoard {
 			Trivia thisGame = new Trivia(gameboard);
 			JPanel thisGameCard = thisGame.getPanel();
 			cards.add(thisGameCard, "TRIVIA");
-			CardLayout cl = (CardLayout)(cards.getLayout());
+			cl = (CardLayout)(cards.getLayout());
 		    cl.show(cards, "TRIVIA");	
 		}
 		control.disableDice();
 	}
 	
 	public void hideMiniGame(){
-		CardLayout cl = (CardLayout)(cards.getLayout());
+		cl = (CardLayout)(cards.getLayout());
 		cl.show(cards, "GAME");	
 		control.enableDice();
 	}
@@ -243,7 +245,22 @@ public class GameBoard {
 		frame.validate();
 	}
 	
-	public void displayHelp(){}
+	public void displayHelp() {
+		helpCard = new JPanel();
+		Help thisHelp = new Help(gameboard);
+		helpCard = thisHelp.helpPanel; 
+		
+		cards.add(helpCard, "HELP");
+		cl = (CardLayout)(cards.getLayout());
+		cl.show(cards, "HELP");
+		control.disableDice();
+	}
+	
+	public void hideHelp(){
+		cl = (CardLayout)(cards.getLayout());
+		cl.show(cards, "GAME");	
+		control.enableDice();		
+	}
 
 	@SuppressWarnings("deprecation")
 	public void exitGame(){

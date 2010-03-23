@@ -19,7 +19,6 @@ public class GameHistory {
 		historyPanel.setLayout(new BoxLayout(historyPanel, BoxLayout.Y_AXIS));
 		historyPanel.setPreferredSize(GameBoard.historyPanelSize);
 		historyPanel.setOpaque(false);
-		historyPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		
 		final JLabel HISTORY = new JLabel("History of this game!");
 		

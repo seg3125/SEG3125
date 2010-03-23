@@ -106,16 +106,14 @@ public class JoinGamePanel {
 
         //Creating the "Click to Join" label
 
-        clickLabel = new JLabel("Click Game to Join");
-        clickLabel.setFont(new Font("Tahoma", 1, 22));
+        clickLabel = new JLabel("Double-click to Join");
+        clickLabel.setFont(new Font("Tahoma", 1, 21));
 
         //Adding the components in the lower level panels
         c1.gridx=0;
         c1.gridy=0;
         clickLabelPanel.add(clickLabel, c1);
-        c1.gridx = 1;
-        c1.gridy = 0;
-        clickLabelPanel.add(Box.createRigidArea(new Dimension(95,100)),c1);
+
         
         c2.gridx = 0;
         c2.gridy = 0;

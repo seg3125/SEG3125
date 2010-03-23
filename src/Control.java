@@ -149,7 +149,7 @@ public class Control extends JFrame{
     }
 
     private void helpActionPerformed(java.awt.event.ActionEvent evt) {
-        // Tell the GameBoard to display the help window
+        game.displayHelp();
     }
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {

@@ -251,7 +251,7 @@ public class CreatePanel1 {
 
         //Creating the "General Info" label
         generalInfoLabel = new JLabel("General Info");
-        generalInfoLabel.setFont(new Font("Tahoma", 1, 22));
+        generalInfoLabel.setFont(new Font("Tahoma", 1, 21));
 
         
         //Adding the components in the lower level panels
@@ -308,7 +308,7 @@ public class CreatePanel1 {
 
         nextButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                superior.changeCreatePanelForward();
+                superior.changeCreatePanelFoward();
             }
         });
 

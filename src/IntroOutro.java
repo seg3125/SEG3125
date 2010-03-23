@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.Box;
 
 import java.awt.event.*;
-import java.io.IOException;
 
 public class IntroOutro{
 
@@ -71,6 +70,7 @@ public class IntroOutro{
         contentPanel.setPreferredSize(contentPanelDim);
         contentPanel.setOpaque(false);
         //contentPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+
 
         //Creating the panel used to placed the main buttons
         highLevelMainButtonPanel =new JPanel();
@@ -193,7 +193,7 @@ public class IntroOutro{
         joinButton.setBackground(new Color(192, 244, 0));  
     }
    
-    public void changeCreatePanelForward(){
+    public void changeCreatePanelFoward(){
         contentPanel.removeAll();
         contentPanel.repaint();
         createGamePanel2 = new CreatePanel2(this);
@@ -222,11 +222,20 @@ public class IntroOutro{
     }
 
     public void goToExistingGame(){
-    		//game.showGame();
+        try {
+            game.showGame();
+        } 
+        catch (Exception ex) {
+        }
     }
+    
 
-    public void goToNewGame() throws IOException{
-    		game.showGame();
+    public void goToNewGame(){
+        try {
+            game.showGame();
+        }
+        catch (Exception ex){
+        }
     }
 
 }

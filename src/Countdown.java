@@ -9,8 +9,10 @@ public class Countdown {
 	JPanel gamePanel;
 	Timer timer;
 	TimerTask theCount;
+	Trivia trivia;
 	
-	public Countdown(JPanel gamePanel){
+	public Countdown(Trivia t, JPanel gamePanel){
+		this.trivia = t;
 		this.currTime = "31";
 		this.gamePanel = gamePanel;
 	}
@@ -29,7 +31,7 @@ public class Countdown {
 	}
 	
 	public void countdown(){	
-		int initialDelay = 1000; // start immediately
+		int initialDelay = 0; // start immediately
 		int period = 1000;    // repeat every second
 		timer = new Timer();
 		theCount = new TimerTask() {
@@ -43,6 +45,7 @@ public class Countdown {
 					gamePanel.validate();
 				} else {
 					cancel();
+					trivia.loseMiniGame("You're out of time!");
 				}
 			}
 		};
