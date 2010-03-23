@@ -7,6 +7,8 @@ import javax.swing.*;
 public class Countdown {
 	String currTime;
 	JPanel gamePanel;
+	Timer timer;
+	TimerTask theCount;
 	
 	public Countdown(JPanel gamePanel){
 		this.currTime = "31";
@@ -29,8 +31,8 @@ public class Countdown {
 	public void countdown(){	
 		int initialDelay = 1000; // start immediately
 		int period = 1000;    // repeat every second
-		Timer timer = new Timer();
-		TimerTask theCount = new TimerTask() {
+		timer = new Timer();
+		theCount = new TimerTask() {
 			public void run() {
 				if(Integer.parseInt(currTime) > 0){
 					gamePanel.remove(3);
@@ -45,5 +47,9 @@ public class Countdown {
 			}
 		};
 		timer.scheduleAtFixedRate(theCount, initialDelay, period);
+	}
+	
+	public void stopCountdown(){
+		this.timer.cancel();
 	}
 }

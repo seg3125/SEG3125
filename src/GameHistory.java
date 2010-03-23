@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.util.LinkedList;
 
 import javax.swing.*;
+import javax.swing.text.Document;
 
 public class GameHistory {
 	JPanel historyPanel;
@@ -34,6 +35,8 @@ public class GameHistory {
 	public void addEvent(String event){
 		this.events.add(event);
 		eventDisplay.append(event);
+		Document d = eventDisplay.getDocument();
+		eventDisplay.select(d.getLength(), d.getLength());
 	}
 	
 	public String getLastEvent(){

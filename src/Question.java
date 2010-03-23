@@ -25,13 +25,13 @@ public class Question {
 		answers[0] = new JButton(a);
 		answers[1] = new JButton(b);
 		answers[2] = new JButton(c);
-		Insets buttonMargin = new Insets(50, 50, 50, 50);
 		for(int n = 0; n < answers.length; n++){
 			answers[n].setBackground(new Color(152, 0, 35));
 			answers[n].setForeground(Color.WHITE);
 			answers[n].setMaximumSize(GameBoard.ANSWER_BUTTON_SIZE);
 	        answers[n].setFont(GameBoard.ANSWER_BUTTON_FONT);
 	        answers[n].setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+	        answers[n].setActionCommand(answers[n].getText());
 		}
 		
 		this.image = new JLabel(i);

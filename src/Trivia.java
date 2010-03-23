@@ -3,10 +3,12 @@ import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
 
-public class Trivia implements ActionListener{
+public class Trivia{
 	JPanel gamePanel;
 	GameBoard game;
 	LinkedList<Question> questions;
+	Countdown cd;
+	Question thisQuestion;
 	
 	public Trivia(GameBoard game){
 		this.game = game;
@@ -40,7 +42,7 @@ public class Trivia implements ActionListener{
 		
 		JLabel intro = new JLabel();
 		String message = "<html>Are you ready for... TRIVIA?";
-		message += "<br /><br />Game Info";
+		message += "<br /><br />Game Info:";
 		message += "<br /><br />Be warned: the game will start as soon as you click the \"Start Game\" button!</html>";
 		intro.setText(message);
 		intro.setOpaque(false);
@@ -52,11 +54,15 @@ public class Trivia implements ActionListener{
 		ready.setBackground(GameBoard.ANSWER_BUTTON_BACK_COLOR);
 		ready.setForeground(GameBoard.ANSWER_BUTTON_FORE_COLOR);
 		ready.setFont(GameBoard.ANSWER_BUTTON_FONT);
-		ready.addActionListener(this);
+		ready.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                finishIntro(evt);
+            }
+        });
 		
 		gamePanel.add(intro);
 		gamePanel.add(BorderLayout.SOUTH, ready);
-		
+		gamePanel.revalidate();
 	}
 	
 	public void startGame(){	
@@ -67,9 +73,9 @@ public class Trivia implements ActionListener{
 		
 		Random r = new Random();
 		int thisQ = r.nextInt(questions.size());
-		Question thisQuestion = questions.get(thisQ);
+		thisQuestion = questions.get(thisQ);
 		
-		Countdown cd = new Countdown(gamePanel);
+		cd = new Countdown(gamePanel);
 		
 		gamePanel.add(thisQuestion.image);
 		gamePanel.add(thisQuestion.question);
@@ -79,6 +85,11 @@ public class Trivia implements ActionListener{
 		for(int i = 0; i < thisQuestion.answers.length; i++){
 			answersPanel.add(thisQuestion.answers[i]);
 			answersPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+			thisQuestion.answers[i].addActionListener(new ActionListener() {
+	            public void actionPerformed(ActionEvent evt) {
+	                checkAnswer(evt);
+	            }
+	        });
 		}
 		gamePanel.add(answersPanel);
 		gamePanel.add(cd.toJLabel("30"));
@@ -86,11 +97,45 @@ public class Trivia implements ActionListener{
 		cd.countdown();
 	}
 	
-	public void actionPerformed(ActionEvent event){
+	public void finishIntro(ActionEvent event){
 		gamePanel.removeAll();
 		gamePanel.validate();
 		gamePanel.revalidate();
 		startGame();
 	}
+	
+    private void checkAnswer(ActionEvent event) {
+        cd.stopCountdown();
+        gamePanel.setLayout(new BorderLayout());
+		gamePanel.removeAll();
+		gamePanel.revalidate();
+		JLabel reply = new JLabel();
+		reply.setFont(GameBoard.HEADER_FONT);
+		reply.setForeground(GameBoard.BACKGROUND_COLOR);
+		reply.setBorder(BorderFactory.createLineBorder(GameBoard.MINIGAME_COLOR, 20));
+		if(event.getActionCommand().equals(thisQuestion.correctAnswer)){
+    		reply.setText("<html>That's correct!</html");
+    		game.history.addEvent("\nTeam won Trivia mini-game!");
+    	} else {
+    		reply.setText("<html>That's wrong!</html>");
+    		game.history.addEvent("\nTeam lost Trivia mini-game.");
+    	}
+		
+    	JButton ready = new JButton("Continue ->");
+		ready.setPreferredSize(GameBoard.ANSWER_BUTTON_SIZE);
+		ready.setBackground(GameBoard.ANSWER_BUTTON_BACK_COLOR);
+		ready.setForeground(GameBoard.ANSWER_BUTTON_FORE_COLOR);
+		ready.setFont(GameBoard.ANSWER_BUTTON_FONT);
+		ready.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                game.hideMiniGame();
+            }
+        });
+
+    	gamePanel.add(reply);
+		gamePanel.add(BorderLayout.SOUTH, ready);
+		
+    	gamePanel.revalidate();
+    }
 
 }

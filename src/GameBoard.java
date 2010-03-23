@@ -25,6 +25,7 @@ public class GameBoard {
 	static final Color ANSWER_BUTTON_FORE_COLOR = Color.WHITE;
 	
 	static final Font ANSWER_BUTTON_FONT = new Font("Tahoma", 1, 14);
+	static final Font HEADER_FONT = new Font("Tahoma", 1, 72);
 	
 	static final Dimension gameSize = new Dimension(900, 600);
 	static final Dimension controlPanelSize = new Dimension(150, 500);
@@ -60,10 +61,10 @@ public class GameBoard {
 	public void updateGameBoard(int numSpaces) throws IOException{
 		int ini_x = team.getX();
 		int ini_y = team.getY();
-		int iniSpot = convertBoardMoves(ini_x, ini_y);
+		int iniSpot = team.currSpot;
 		boolean moved = false;
 		
-		if(ini_x == 1 && ini_y == 1){
+		if(iniSpot == 8){
 			;
 		} else {		
 			int newSpot = convertBoardMoves(ini_x, ini_y);
@@ -82,14 +83,6 @@ public class GameBoard {
 				team.y_position = coords[1];
 				spacesMoved = convertBoardMoves(coords[0], coords[1]) - iniSpot;
 				moved = true;
-			} else if(newSpot >= 9){
-				// Winner!
-				game.updateSteps(ini_x, ini_y, 1, 1);
-				team.x_position = 1;
-				team.y_position = 1;
-				spacesMoved = 9 - iniSpot;
-				history.addEvent("\nTeam moved " + numSpaces + " spaces."); 
-				history.addEvent("\nTEAM WON!");
 			} else {
 				coords = convertBoardMoves(newSpot);
 				game.updateSteps(ini_x, ini_y, coords[0], coords[1]);
@@ -99,13 +92,23 @@ public class GameBoard {
 				moved = true;
 			}
 			
+			if(moved){
+				history.addEvent("\nTeam moved " + spacesMoved + " spaces."); 
+				team.currSpot += spacesMoved;
+			}
+			
+			if(team.currSpot == 8){
+				// Winner!
+				game.updateSteps(ini_x, ini_y, 1, 1);
+				team.x_position = 1;
+				team.y_position = 1;
+				history.addEvent("\nTeam moved " + numSpaces + " spaces."); 
+				history.addEvent("\nTEAM WON!");
+				displayGameWon();
+			}
 			String miniGame = isMiniGame(coords[0], coords[1]);
 			if(!miniGame.equals("FALSE")){
 				displayMiniGame(miniGame);
-			}
-			
-			if(moved){
-				history.addEvent("\nTeam moved " + spacesMoved + " spaces."); 
 			}
 		}
 	}
@@ -189,6 +192,7 @@ public class GameBoard {
 	public void hideMiniGame(){
 		CardLayout cl = (CardLayout)(cards.getLayout());
 		cl.show(cards, "GAME");	
+		control.enableDice();
 	}
 	
 	public int[] getNextMiniGame(int x, int y){
@@ -249,7 +253,6 @@ public class GameBoard {
 		JDialog dialog = pane.createDialog(frame, "Are you sure?");
 	    dialog.show();
 		Object selectedValue = pane.getValue();
-		//If there is an array of option buttons:
 	    if(selectedValue.equals(JOptionPane.YES_OPTION)){
 			frame.getContentPane().removeAll();
 			frame.validate();
@@ -259,6 +262,26 @@ public class GameBoard {
 	    } else {
 	    	;
 	    }	
+	}
+	
+	public void displayGameWon(){		
+		JOptionPane pane = new JOptionPane();
+		pane.setMessage("You have won this game! \nWould you like to play again?");
+		pane.setOptionType(JOptionPane.YES_NO_OPTION);
+		JDialog dialog = pane.createDialog(frame, "Congratulations!");
+	    dialog.show();
+		Object selectedValue = pane.getValue();
+	    if(selectedValue.equals(JOptionPane.YES_OPTION)){
+			frame.getContentPane().removeAll();
+			frame.validate();
+			introOutro = new IntroOutro(gameboard);
+	        frame.getContentPane().add(introOutro.mainPanel);
+	        frame.validate();	
+	    } else {
+	    	/*
+	    	 * Redirect the user to the website homepage?
+	    	 */
+	    }
 	}
 
 }

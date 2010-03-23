@@ -7,12 +7,14 @@ public class Team {
 	ImageIcon token;
 	int x_position;
 	int y_position;
+	int currSpot;
 	
 	public Team(){
 		this.color = new Color(0, 0, 255);
 		this.token = new ImageIcon("images/token.png");
 		this.x_position = 2;
 		this.y_position = 2;
+		this.currSpot = 0;
 	}
 	
 	public int getX(){
