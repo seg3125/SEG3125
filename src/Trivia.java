@@ -97,7 +97,7 @@ public class Trivia extends MiniGame{
 		int thisQ = r.nextInt(questions.size()-1);
 		thisQuestion = questions.get(thisQ);
 		
-		cd = new Countdown(this, gamePanel, game);
+		cd = new Countdown(this, gamePanel, game, 150);
 		
 		gamePanel.add(thisQuestion.image);
 		gamePanel.add(thisQuestion.question);
@@ -127,7 +127,8 @@ public class Trivia extends MiniGame{
 	}
 	
     private void checkAnswer(ActionEvent event) {
-        cd.stopCountdown();        	
+        cd.stopCountdown();  
+        cd.resetTimer();
 		
 		if(event.getActionCommand().equals(thisQuestion.correctAnswer)){
 			gamePanel.setLayout(new BorderLayout());
@@ -136,7 +137,7 @@ public class Trivia extends MiniGame{
 			
     		reply.setText("<html>That's correct!</html");
     		ready.setText("Continue ->");
-    		game.history.addEvent("\nTeam won Trivia mini-game!");
+    		game.history.addEvent("\n" + game.getTeam(game.whichTurn).teamName + " won Trivia mini-game!");
     		gamePanel.add(reply);
     		gamePanel.add(BorderLayout.SOUTH, ready);
     		ready.addActionListener(new java.awt.event.ActionListener() {
@@ -147,7 +148,11 @@ public class Trivia extends MiniGame{
         	gamePanel.revalidate();
     	} else {
     		loseMiniGame(gameName, game, gamePanel, "That's the wrong answer!");
-    	}    	
+    	}  
+    }
+    
+    public void removeTimeNumber(){
+        gamePanel.remove(3);
     }
 
 }

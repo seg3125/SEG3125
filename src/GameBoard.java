@@ -5,6 +5,7 @@
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.swing.*;
 
@@ -18,7 +19,9 @@ public class GameBoard {
 	Game game;
 	Chat chat;
 	GameHistory history;
-	Team team; // Only one for now
+	Team teamA; 
+	Team teamB;
+	String whichTurn;
 	IntroOutro introOutro;
 	
 	static final Color BACKGROUND_COLOR = new Color(83, 223, 0);
@@ -60,11 +63,17 @@ public class GameBoard {
 		frame.setVisible(true);				
 	}
 	
-	public void updateGameBoard(int numSpaces) throws IOException{
+	public void updateGameBoard(Team team, int numSpaces) throws IOException{
 		int ini_x = team.getX();
 		int ini_y = team.getY();
 		int iniSpot = team.currSpot;
 		boolean moved = false;
+		Team otherTeam;
+		if(whichTurn.equals("teamA")){
+			otherTeam = teamB;
+		} else {
+			otherTeam = teamB;
+		}
 		
 		if(iniSpot == 8){
 			;
@@ -80,37 +89,42 @@ public class GameBoard {
 			
 			if(numSpaces >= 2){
 				coords = getNextMiniGame(ini_x, ini_y);
-				game.updateSteps(ini_x, ini_y, coords[0], coords[1]);
 				team.x_position = coords[0];
 				team.y_position = coords[1];
+				game.updateSteps(team, ini_x, ini_y, coords[0], coords[1]);
+				game.updateSteps(otherTeam, otherTeam.x_position, otherTeam.y_position, otherTeam.x_position, otherTeam.y_position);
 				spacesMoved = convertBoardMoves(coords[0], coords[1]) - iniSpot;
 				moved = true;
 			} else {
 				coords = convertBoardMoves(newSpot);
-				game.updateSteps(ini_x, ini_y, coords[0], coords[1]);
 				team.x_position = coords[0];
 				team.y_position = coords[1];	
+				game.updateSteps(team, ini_x, ini_y, coords[0], coords[1]);
+				game.updateSteps(otherTeam, otherTeam.x_position, otherTeam.y_position, otherTeam.x_position, otherTeam.y_position);
 				spacesMoved = convertBoardMoves(coords[0], coords[1]) - iniSpot;
 				moved = true;
 			}
 			
 			if(moved){
-				history.addEvent("\nTeam moved " + spacesMoved + " spaces."); 
+				history.addEvent("\n" + team.teamName + " moved " + spacesMoved + " space(s)."); 
 				team.currSpot += spacesMoved;
 			}
 			
 			if(team.currSpot == 8){
 				// Winner!
-				game.updateSteps(ini_x, ini_y, 1, 1);
 				team.x_position = 1;
 				team.y_position = 1;
-				history.addEvent("\nTeam moved " + numSpaces + " spaces."); 
-				history.addEvent("\nTEAM WON!");
+				game.updateSteps(team, ini_x, ini_y, 1, 1);
+				game.updateSteps(otherTeam, otherTeam.x_position, otherTeam.y_position, otherTeam.x_position, otherTeam.y_position);
+				history.addEvent("\n" + team.teamName + " moved " + numSpaces + " spaces."); 
+				history.addEvent("\n" + team.teamName + " WON!");
 				displayGameWon();
 			}
 			String miniGame = isMiniGame(coords[0], coords[1]);
 			if(!miniGame.equals("FALSE")){
 				displayMiniGame(miniGame);
+			} else {
+				updateCurrTurn();
 			}
 		}
 	}
@@ -164,12 +178,13 @@ public class GameBoard {
 	public String isMiniGame(int x, int y){
 		String xy = Integer.toString(x) + Integer.toString(y);
 		String toReturn = "FALSE";
-		if(xy.equals("20")){
-			toReturn = "Trivia";
-		} else if(xy.equals("00")){
-			toReturn = "Trivia";
-		} else if(xy.equals("02")){
-			toReturn = "Trivia";
+		if(xy.equals("20") || xy.equals("00") || xy.equals("02")){
+			String[] games = new String[2];
+			games[0] = "Trivia";
+			games[1] = "Sketch";
+			Random r = new Random();
+			int rand = r.nextInt(games.length);
+			toReturn = games[rand];
 		}
 		return toReturn;
 	}
@@ -189,12 +204,15 @@ public class GameBoard {
 		    cl.show(cards, "TRIVIA");	
 		}
 		control.disableDice();
+		control.disableHelp();
 	}
 	
 	public void hideMiniGame(){
 		cl = (CardLayout)(cards.getLayout());
 		cl.show(cards, "GAME");	
 		control.enableDice();
+		control.enableHelp();
+		updateCurrTurn();
 	}
 	
 	public int[] getNextMiniGame(int x, int y){
@@ -230,8 +248,11 @@ public class GameBoard {
 		
 		history = new GameHistory(gameboard);
 		
-		team = new Team();
-		updateGameBoard(0);
+		teamA = new Team("RED", "Team Red");
+		teamB = new Team("BLUE", "Team Blue");
+		whichTurn = "teamA"; //teamA goes first
+		updateGameBoard(teamA, 0);
+		updateGameBoard(teamB, 0);
 		
 		cards = new JPanel(new CardLayout());
 		cards.setOpaque(false);
@@ -254,14 +275,12 @@ public class GameBoard {
 		cl = (CardLayout)(cards.getLayout());
 		cl.show(cards, "HELP");
 		control.disableDice();
-		control.disableHelp();
 	}
 	
 	public void hideHelp(){
 		cl = (CardLayout)(cards.getLayout());
 		cl.show(cards, "GAME");	
-		control.enableDice();	
-		control.enableHelp();
+		control.enableDice();		
 	}
 
 	@SuppressWarnings("deprecation")
@@ -283,7 +302,7 @@ public class GameBoard {
 	    }	
 	}
 	
-	public void displayGameWon(){		
+    public void displayGameWon(){
 		JOptionPane pane = new JOptionPane();
 		pane.setMessage("You have won this game! \nWould you like to play again?");
 		pane.setOptionType(JOptionPane.YES_NO_OPTION);
@@ -295,12 +314,27 @@ public class GameBoard {
 			frame.validate();
 			introOutro = new IntroOutro(gameboard);
 	        frame.getContentPane().add(introOutro.mainPanel);
-	        frame.validate();	
+	        frame.validate();
 	    } else {
 	    	/*
 	    	 * Redirect the user to the website homepage?
 	    	 */
 	    }
 	}
-
+        
+    public void updateCurrTurn(){
+    	if(whichTurn.equals("teamA")){
+    		whichTurn = "teamB";
+    	} else {
+    		whichTurn = "teamA";
+    	}
+    }
+    
+    public Team getTeam(String team){
+    	if(team.equals("teamA")){
+    		return teamA;
+    	} else {
+    		return teamB;
+    	}
+    }
 }

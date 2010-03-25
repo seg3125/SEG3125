@@ -50,14 +50,14 @@ public class Game{
 	 * This method is LARGELY adapted from 
 	 * http://forums.sun.com/thread.jspa?threadID=505366
 	 */
-	public void updateSteps(int oldx, int oldy, int i, int j) throws IOException{
+	public void updateSteps(Team team, int oldx, int oldy, int i, int j) throws IOException{
 		JLabel theLabel = new JLabel(new ImageIcon(urlAt(oldx, oldy)));
 		int theLoc = game.convertBoardMoves(oldx, oldy);
 		String theType = game.isMiniGame(oldx, oldy);
 		steps[oldx][oldy] = new Step(theLabel, theType, theLoc, game);
 		File url = new File(urlAt(i, j));
 		BufferedImage im = ImageIO.read(url);
-		File url2 = new File("images/token.png");
+		File url2 = new File(team.tokenLoc);
 		BufferedImage im2 = ImageIO.read(url2);
 		Graphics2D g = im.createGraphics();
 		g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));

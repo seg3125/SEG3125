@@ -10,25 +10,21 @@ public abstract class MiniGame {
 	GameBoard game;
 	String gameName;
     
-    public void loseMiniGame(final String whichGame, final GameBoard game, JPanel gamePanel, String message){
+    public void loseMiniGame(String whichGame, final GameBoard game, JPanel gamePanel, String message){
     	this.game = game;
+        gamePanel.removeAll();
+        gamePanel.validate();
+        gamePanel.revalidate();
     	gamePanel.setLayout(new BorderLayout());
-		gamePanel.removeAll();
-		gamePanel.revalidate();	
 		
     	reply.setText("<html>" + message + "</html>");
-    	ready.setText("Try again?");
+    	ready.setText("Continue ->");
 		game.history.addEvent("\nTeam lost mini-game.");
-		ready.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                game.hideMiniGame();
-                game.displayMiniGame(whichGame);
-            }
-        });
 		
 		gamePanel.add(reply);
-		gamePanel.add(BorderLayout.SOUTH, ready);
 		
     	gamePanel.revalidate();
     }
+
+    abstract void removeTimeNumber();
 }

@@ -45,12 +45,6 @@ public class IntroOutro{
     static final Dimension mainPanelDim = new Dimension(900, 550);
     static final Dimension contentPanelDim = new Dimension(600, 525);
 
-
-
-    //**************************************************************************
-    //Attributes used to keep game data
-    //**************************************************************************
-
     
     /** Creates new form IntroOutro */
     public IntroOutro(GameBoard game) {
@@ -160,6 +154,7 @@ public class IntroOutro{
     }
     
     public void displayJoinGamePanel(){
+   
         contentPanel.removeAll();
         contentPanel.repaint();
         joinGamePanel = new JoinGamePanel(this);
@@ -171,6 +166,7 @@ public class IntroOutro{
         //Toggling the state other main button
         createButton.setEnabled(true);
         createButton.setBackground(new Color(192, 244, 0));
+        
     }
     
     public void closeSubPanel(){

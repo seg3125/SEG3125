@@ -11,12 +11,14 @@ public class Countdown {
 	TimerTask theCount;
 	MiniGame mg;
 	GameBoard game;
+    int size;
 	
-	public Countdown(MiniGame t, JPanel gamePanel, GameBoard game){
+	public Countdown(MiniGame t, JPanel gamePanel, GameBoard game, int size){
 		this.game = game;
 		this.mg = t;
 		this.currTime = "31";
 		this.gamePanel = gamePanel;
+        this.size=size;
 	}
 	
 	public Countdown(String time, JPanel gamePanel, GameBoard game){
@@ -28,7 +30,7 @@ public class Countdown {
 	public JLabel toJLabel(String curr){
 		JLabel toReturn = new JLabel();
 		toReturn.setText(curr);
-		toReturn.setFont(new Font("Tahoma", 1, 150));
+		toReturn.setFont(new Font("Tahoma", 1, size));
 		toReturn.setForeground(new Color(234, 0, 55));
 		return toReturn;
 	}
@@ -40,7 +42,7 @@ public class Countdown {
 		theCount = new TimerTask() {
 			public void run() {
 				if(Integer.parseInt(currTime) > 0){
-					gamePanel.remove(3);
+					mg.removeTimeNumber();
 					int curr = Integer.parseInt(currTime);
 					curr--;
 					currTime = Integer.toString(curr);
@@ -48,6 +50,7 @@ public class Countdown {
 					gamePanel.validate();
 				} else {
 					cancel();
+					resetTimer();
 					mg.loseMiniGame(mg.gameName, game, gamePanel, "You're out of time!");
 				}
 			}
@@ -57,5 +60,9 @@ public class Countdown {
 	
 	public void stopCountdown(){
 		this.timer.cancel();
+	}
+	
+	public void resetTimer(){
+		this.currTime = "31";
 	}
 }

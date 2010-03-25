@@ -1,45 +1,20 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * Control.java
- *
- * Created on 20-Mar-2010, 3:11:47 PM
- */
-
-/**
- *
- * @author Phil
- */
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Dimension;
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.awt.event.*;
-import java.awt.Cursor;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.Box;
+import javax.swing.*;
 
 import java.util.Random;
 
 public class Control {
 
     public GameBoard game;
-    public javax.swing.JPanel controlPanel;
-    private javax.swing.JPanel teamColorPanel;
-    private javax.swing.JLabel teamColorLabel;
-    private javax.swing.JPanel controlButtonPanel;
-    public javax.swing.JButton dice;
-    public javax.swing.JButton exit;
-    public javax.swing.JButton help;
+    public JPanel controlPanel;
+    private JPanel teamColorPanel;
+    private JLabel teamColorLabel;
+    private JPanel controlButtonPanel;
+    public JButton dice;
+    public JButton exit;
+    public JButton help;
 
     /** Creates new form Control */
     public Control(GameBoard game) {
@@ -67,7 +42,7 @@ public class Control {
     private void initComponents() {
 
         //Main Panel
-        controlPanel = new javax.swing.JPanel(new BorderLayout());
+        controlPanel = new JPanel(new BorderLayout());
         controlPanel.setOpaque(false);
 		controlPanel.setPreferredSize(GameBoard.controlPanelSize);
 		controlPanel.setBorder(BorderFactory.createLineBorder(Color.black,1));
@@ -148,13 +123,13 @@ public class Control {
         controlButtonPanel.add(dice, c2);
         c2.gridx = 0;
         c2.gridy = 1;
-        controlButtonPanel.add(Box.createRigidArea(new Dimension(0,3)), c2);
+        controlButtonPanel.add(Box.createRigidArea(new Dimension(0,10)), c2);
         c2.gridx = 0;
         c2.gridy = 2;
         controlButtonPanel.add(help, c2);
         c2.gridx = 0;
         c2.gridy = 3;
-        controlButtonPanel.add(Box.createRigidArea(new Dimension(0,3)), c2);
+        controlButtonPanel.add(Box.createRigidArea(new Dimension(0,10)), c2);
         c2.gridx = 0;
         c2.gridy = 4;
         controlButtonPanel.add(exit, c2);
@@ -165,13 +140,13 @@ public class Control {
       
     }
 
-    private void diceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diceActionPerformed
+    private void diceActionPerformed(ActionEvent evt) {//GEN-FIRST:event_diceActionPerformed
         if (dice.isEnabled()){
             //Random number generation
             Random randomGenerator = new Random();
-            int rand = randomGenerator.nextInt(5) + 1;
+            int rand = randomGenerator.nextInt(1) + 1;
             try{
-                game.updateGameBoard(1);
+                game.updateGameBoard(game.getTeam(game.whichTurn), rand);
             }
             catch (Exception ex){
             }

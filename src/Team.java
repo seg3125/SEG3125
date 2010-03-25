@@ -1,22 +1,22 @@
-import java.awt.Color;
-
-import javax.swing.ImageIcon;
+import javax.swing.*;
 
 public class Team {
-	Color color;
+	String color;
+	String teamName;
+	String tokenLoc;
 	ImageIcon token;
 	int x_position;
 	int y_position;
 	int currSpot;
-	String name;
 	
-	public Team(){
-		this.color = new Color(0, 0, 255);
-		this.token = new ImageIcon("images/token.png");
+	public Team(String color, String teamName){
+		this.color = color;
+		this.teamName = teamName;
+		tokenLoc = "images/token" + color + ".png";
+		this.token = new ImageIcon(tokenLoc);
 		this.x_position = 2;
 		this.y_position = 2;
 		this.currSpot = 0;
-		this.name = "AWESOMETEAM";
 	}
 	
 	public int getX(){
@@ -26,4 +26,5 @@ public class Team {
 	public int getY(){
 		return this.y_position;
 	}
+
 }
