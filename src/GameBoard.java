@@ -8,10 +8,12 @@ import java.io.IOException;
 import java.util.Random;
 
 import javax.swing.*;
+import javax.swing.JApplet.*;
 
-public class GameBoard {	
+public class GameBoard extends JApplet{	
 	static GameBoard gameboard;
 	JFrame frame;
+	JPanel main;
 	JPanel cards;
 	JPanel helpCard;
 	CardLayout cl;
@@ -41,14 +43,17 @@ public class GameBoard {
 	
 	/**
 	 * @param args
-	 * @throws Exception 
 	 */
-	public static void main(String[] args) throws Exception {
+	public void init() {
 		gameboard = new GameBoard();
-		gameboard.createGameBoard();
+		try {
+			gameboard.drawGameBoard();
+		} catch (Exception e) {
+			;
+		}
 	}
 	
-	public void createGameBoard() throws Exception{
+	public void drawGameBoard() throws IOException{
 		frame = new JFrame();
 		frame.getContentPane().setBackground(BACKGROUND_COLOR);			
 
@@ -242,27 +247,9 @@ public class GameBoard {
 		frame.getContentPane().removeAll();
 		frame.validate();
 		
-		control = new Control(gameboard);
-		game = new Game(gameboard);
-		chat = new Chat();		
+		initComponents();
 		
-		history = new GameHistory(gameboard);
-		
-		teamA = new Team("RED", "Team Red");
-		teamB = new Team("BLUE", "Team Blue");
-		whichTurn = "teamA"; //teamA goes first
-		updateGameBoard(teamA, 0);
-		updateGameBoard(teamB, 0);
-		
-		cards = new JPanel(new CardLayout());
-		cards.setOpaque(false);
-		JPanel gameCard = game.gamePanel;
-		cards.add(gameCard, "GAME");
-
-		frame.getContentPane().add(BorderLayout.WEST, control.controlPanel);
-		frame.getContentPane().add(BorderLayout.CENTER, cards);
-		frame.getContentPane().add(BorderLayout.EAST, chat.chatPanel);
-		frame.getContentPane().add(BorderLayout.SOUTH, history.historyPanel);
+		frame.getContentPane().add(main);
 		frame.validate();
 	}
 	
@@ -336,5 +323,32 @@ public class GameBoard {
     	} else {
     		return teamB;
     	}
+    }
+    
+    public void initComponents() throws IOException{
+    	main = new JPanel();
+		main.setLayout(new BorderLayout());
+		main.setOpaque(false);
+
+		control = new Control(gameboard);
+		game = new Game(gameboard);
+		chat = new Chat();		
+		history = new GameHistory(gameboard);
+		
+		teamA = new Team("RED", "Team Red");
+		teamB = new Team("BLUE", "Team Blue");
+		whichTurn = "teamA"; //teamA goes first
+		updateGameBoard(teamA, 0);
+		updateGameBoard(teamB, 0);
+		
+		cards = new JPanel(new CardLayout());
+		cards.setOpaque(false);
+		JPanel gameCard = game.gamePanel;
+		cards.add(gameCard, "GAME");
+
+		main.add(BorderLayout.WEST, control.controlPanel);
+		main.add(BorderLayout.CENTER, cards);
+		main.add(BorderLayout.EAST, chat.chatPanel);
+		main.add(BorderLayout.SOUTH, history.historyPanel);
     }
 }
